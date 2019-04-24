@@ -1,0 +1,12 @@
+################
+#   Database   #
+################
+
+# REPLACE ALL BELOW
+mysql:
+  host: HOST (usually `localhost`)
+  port: PORT_#
+  user: USERNAME
+  passwd: PASSWORD
+  db: DATABASE
+  local_infile: True
