@@ -1,4 +1,5 @@
 # CIO4Good Database
+_US East (N. Virginia) us-east-1_
 
 ## Project Layout
 | Key File |  Description |
@@ -33,17 +34,19 @@ pip install -r requirements.txt
 Use (MySQL Workbench)[https://www.mysql.com/products/workbench/] to configure a database quickly for the upcoming steps. After configuring mysql, open mysql workbench and do the following:
 
 1) Create a connection. Make sure to remember all the information you enter in here! This is the information you'll be entering in the `config/my.yaml` file. 
-2) Enter the information you used to create a connection into a *.yaml file in the `config` folder
+2) Enter the information you used to create a connection into a *.yaml file in the `config` folder. _The rest of this setup assumes you've used root as your username (which isn't a good practice). Be warned_
 3) (Optional) Create a database/schema named `cio4good` INSIDE the connection you just created
 
 ## Steps to create MySQL Database
 
 1) Run the `cleaning.py` file.
+
 ```
 python cleaning.py
 ```
 
 2) Run `run_mysql_script.py` as follows, tailoring the *.yaml and *.sql file paths as necessary:
+
 _macOS_
 ```
 python3 run_mysql_script.py -c ./path/to/config/file/*.yaml -p ./path/to/sql/script/*.sql
@@ -59,13 +62,20 @@ python run_mysql_script.py -c ./config/my.yaml -p ./cumulative.sql
 ```
 
 3) In your terminal run `mysqldump` to create a `.sql` file 
+
 ```
-sudo mysqldump cio4good cio4good -p
+sudo mysqldump cio4good cio4good -p > mySQLdump.sql
 ```
 _This way works if your username/user is root._
 
 ## Steps to push to AWS
+Now we have to push our MySQL database to AWS. _[Here's the reference material for this section](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_GettingStarted.CreatingConnecting.MySQL.html#CHAP_GettingStarted.Connecting.MySQL)_
+
 1) Run the aws connection string with to input the new database.
+
+```
+mysql -h <awsendpoint> -P 3306 -u <mymasteruser> -p
+```
 
 2) Double check some queries to make sure that the import was successful and all fields mapped.
 
