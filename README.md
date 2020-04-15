@@ -45,7 +45,7 @@ Use (MySQL Workbench)[https://www.mysql.com/products/workbench/] to configure a 
 python cleaning.py
 ```
 
-2) Run `run_mysql_script.py` as follows, tailoring the *.yaml and *.sql file paths as necessary:
+2) Run `run_mysql_script.py` as follows, tailoring the *.yaml and *.sql file paths as necessary (see Troubleshooting below if errors occur with loading data in this step):
 
 _macOS_
 ```
@@ -108,5 +108,8 @@ The run_mysql_script.py features the following arguments:
 
 ### cleaning.py
 Make sure to validate the data after running the `cleaning.py` file to create the agrgregate CSV file for input into the database. There is a known issue with the `# of Organization Staff` field putting data from 2001 in a different column of it's own toward the beginning and the rest in a duplicate column in subsequent years. Just move them over into the later column.
+
+### Troubleshooting
+If you run into issues with step #2 of creating a MySQL database, verify that the data is being loaded from a local infile (in `run_mysql_script.py`) and the mysql 'local_infile' variable is set to ON (```mysql> SET GLOBAL local_infile=1```). (Reference: https://stackoverflow.com/questions/59993844/error-loading-local-data-is-disabled-this-must-be-enabled-on-both-the-client)
 
 
